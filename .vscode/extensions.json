@@ -1,0 +1,9 @@
+{
+  // @recommended extensions
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "svelte.svelte-vscode",
+    "bradlc.vscode-tailwindcss",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}

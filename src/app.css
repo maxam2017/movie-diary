@@ -1,0 +1,35 @@
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Helvetica Arial sans-serif;
+}
+
+@layer base {
+  body,
+  #svelte {
+    @apply font-mono bg-slate-50 min-h-screen flex flex-col;
+  }
+
+  button {
+    @apply py-1 px-4 rounded-md;
+    @apply cursor-pointer focus:outline-none;
+  }
+
+  .btn,
+  .btn-sm {
+    @apply outline-none inline-flex items-center justify-center;
+    @apply font-medium border border-transparent rounded;
+    @apply transition duration-150 ease-in-out;
+  }
+
+  .btn {
+    @apply px-8 py-3 shadow-lg;
+  }
+
+  .btn-sm {
+    @apply px-4 py-2 shadow;
+  }
+}
