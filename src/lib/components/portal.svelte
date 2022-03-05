@@ -16,7 +16,7 @@
   });
 </script>
 
-<div class="hidden">
+<div class="hidden w-0">
   <div bind:this={ref}>
     <slot />
   </div>

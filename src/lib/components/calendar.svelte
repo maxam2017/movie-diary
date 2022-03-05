@@ -66,11 +66,15 @@
     @apply rounded-full font-medium text-xl text-slate-600;
   }
 
+  .calendar__item--active {
+    @apply text-red-500;
+  }
+
   .calendar__item--selected {
     @apply bg-black text-white;
   }
 
-  .calendar__item--active {
+  .calendar__item--selected.calendar__item--active {
     @apply bg-red-500 text-white;
   }
 </style>
