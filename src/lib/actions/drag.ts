@@ -1,8 +1,8 @@
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { clamp } from 'lodash-es';
 
 type Options = {
   shouldDrag?(): boolean;
-  onMove?(): void;
+  onMove?(v: number /* min: 0, max: 1 */): void;
   onClose?(): void;
 };
 
@@ -17,7 +17,6 @@ export function drag<T extends HTMLElement = HTMLDivElement>(node: T, options: O
       clientTop = node.getBoundingClientRect().top;
       initY = event.touches[0].clientY;
       node.style.transition = '';
-      disableBodyScroll(document.body);
     }
   };
 
@@ -28,6 +27,7 @@ export function drag<T extends HTMLElement = HTMLDivElement>(node: T, options: O
 
     touchY = event.touches[0].clientY;
     const offsetY = touchY - initY;
+    options.onMove?.(clamp(offsetY / (window.innerHeight - initY), 0, 1));
     node.style.transform = `translateY(${Math.max(0, offsetY * 1.1)}px)`;
   };
 
@@ -35,7 +35,6 @@ export function drag<T extends HTMLElement = HTMLDivElement>(node: T, options: O
     const shouldClose = (touchY - clientTop) * 2 >= node.clientHeight;
     node.style.transition = '200ms';
     node.style.transform = shouldClose ? 'translateY(100vh)' : '';
-    enableBodyScroll(document.body);
     dragging = false;
 
     if (shouldClose) options.onClose?.();
@@ -53,8 +52,6 @@ export function drag<T extends HTMLElement = HTMLDivElement>(node: T, options: O
 
       node.style.transform = '';
       node.style.transition = '';
-
-      clearAllBodyScrollLocks();
     },
   };
 }

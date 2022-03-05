@@ -1,30 +1,40 @@
 <script lang="ts">
+  import { lock, unlock, clearBodyLocks } from 'tua-body-scroll-lock';
   import { clickOutside } from '$lib/actions/click-outside';
   import { drag } from '$lib/actions/drag';
 
   import { slide, fade } from 'svelte/transition';
+
   import Portal from './portal.svelte';
+  import { onDestroy, onMount } from 'svelte';
 
   let isOpen = false;
   let sheetContentEl: HTMLDivElement;
 
+  onDestroy(() => {
+    if (typeof window === 'undefined') return;
+    clearBodyLocks();
+  });
+
   export function open(): void {
     isOpen = true;
+    lock();
   }
 
   export function close(): void {
     isOpen = false;
+    unlock();
   }
 
   $: if (isOpen) {
     if (typeof window !== 'undefined') {
-      const el = document.querySelector('#svelte');
-      el.classList.add('transition-[600ms]', 'transform', 'scale-[0.97]', 'translate-y-1');
+      const svelteEl = document.querySelector('#svelte');
+      svelteEl.classList.add('transition-[600ms]', 'transform', 'scale-[0.94]', 'translate-y-1', 'origin-center');
     }
   } else {
     if (typeof window !== 'undefined') {
-      const el = document.querySelector('#svelte');
-      el.classList.remove('scale-[0.97]', 'translate-y-1');
+      const svelteEl = document.querySelector('#svelte');
+      svelteEl.classList.remove('scale-[0.94]', 'translate-y-1');
     }
   }
 </script>
@@ -34,7 +44,10 @@
     <div class="backdrop" transition:fade={{ duration: 600 }} />
     <div
       use:clickOutside
-      use:drag={{ onClose: close, shouldDrag: () => sheetContentEl.scrollTop === 0 }}
+      use:drag={{
+        onClose: close,
+        shouldDrag: () => sheetContentEl.scrollTop === 0,
+      }}
       on:outclick={() => (isOpen = false)}
       transition:slide
       class="sheet"

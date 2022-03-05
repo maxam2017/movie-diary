@@ -22,6 +22,6 @@
   }
 
   .fb-btn__text {
-    @apply ml-2;
+    @apply ml-2 text-sm;
   }
 </style>

@@ -8,9 +8,13 @@
 }
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   body,
   #svelte {
-    @apply font-mono bg-slate-50 min-h-screen flex flex-col;
+    @apply w-full font-mono bg-slate-50 min-h-screen flex flex-col;
   }
 
   button {
