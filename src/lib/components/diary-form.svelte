@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { snackbar } from '$lib/stores/snackbar';
+
   // form
   import { createForm } from 'svelte-forms-lib';
   import * as yup from 'yup';
@@ -18,6 +20,7 @@
         try {
           await onSubmit?.(values);
           drawer.close();
+          snackbar({ text: 'Create success 🍿️' });
         } catch {}
       },
     });
