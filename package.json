@@ -40,6 +40,7 @@
     "@supabase/supabase-js": "^1.29.4",
     "date-fns": "^2.28.0",
     "lodash-es": "^4.17.21",
+    "svelte-forms-lib": "^2.0.1",
     "tua-body-scroll-lock": "^1.2.1"
   },
   "lint-staged": {

@@ -3,6 +3,9 @@
 
   import Portal from '../components/portal.svelte';
   import { bsl } from '$lib/actions/bsl';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
 
   let isOpen = false;
 
@@ -14,6 +17,7 @@
 
   export function close(): void {
     isOpen = false;
+    dispatch('close');
   }
 
   function slide(_node: HTMLDivElement, {}): TransitionConfig {
@@ -94,7 +98,7 @@
 
   .drawer__header__action {
     padding: 0 12px;
-    @apply text-base font-semibold;
+    @apply text-base font-normal;
   }
 
   .drawer__content {
