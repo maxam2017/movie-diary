@@ -5,6 +5,7 @@
 
   import { clamp, debounce } from 'lodash-es';
   import { createEventDispatcher } from 'svelte';
+  import { fade } from 'svelte/transition';
 
   import Drawer from './drawer.svelte';
   import IntersectionObserver from './intersection-observer.svelte';
@@ -92,8 +93,8 @@
             : ''}
         >
           {#if selectedMovieId === movie.id}
-            <svg viewBox="0 0 24 24"
-              ><path
+            <svg viewBox="0 0 24 24" transition:fade={{ duration: 100 }}>
+              <path
                 d="M9 16.17L5.53 12.7a1 1 0 00-1.4 0h-.01a1 1 0 000 1.41L8.3 18.3a1 1 0 001.4 0L20.3 7.7a1 1 0 000-1.41 1 1 0 00-1.41 0z"
               />
             </svg>
@@ -160,8 +161,19 @@
           z-index: 0;
           width: 100%;
           height: 100%;
+          animation: scale 100ms;
         }
       }
+    }
+  }
+
+  @keyframes scale {
+    from {
+      transform: scale(0);
+      transform-origin: center center;
+    }
+    to {
+      transform: scale(1);
     }
   }
 

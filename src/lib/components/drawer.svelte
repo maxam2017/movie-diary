@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade, TransitionConfig } from 'svelte/transition';
+  import type { TransitionConfig } from 'svelte/transition';
 
   import Portal from '../components/portal.svelte';
   import { bsl } from '$lib/actions/bsl';
@@ -22,7 +22,7 @@
 
   function slide(_node: HTMLDivElement, {}): TransitionConfig {
     return {
-      duration: 150,
+      duration: 180,
       css: (t, u) => {
         return `transform: translate${axis.toUpperCase()}(${u * 100}%)`;
       },
@@ -32,7 +32,7 @@
 
 <Portal>
   {#if isOpen}
-    <div class="backdrop" transition:fade={{ duration: 300 }} />
+    <!-- <div class="backdrop" transition:fade={{ duration: 300 }} /> -->
     <div transition:slide class="drawer">
       <div class="drawer__header">
         {#if axis === 'x'}
