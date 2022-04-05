@@ -9,3 +9,5 @@ declare namespace svelte.JSX {
     onoutclick?(): void;
   }
 }
+
+type Union<T, V> = { [K in keyof T | keyof V]?: K extends keyof T ? T[K] : K extends keyof V ? V[K] : never }; //Record< extends keyof T ? T[K] : V[K]>;

@@ -1,17 +1,18 @@
 <script lang="ts">
   export let once = false;
-  export let onInersection: () => void = () => {};
 
-  import { onMount } from 'svelte';
+  import { createEventDispatcher, onMount } from 'svelte';
 
   let containerEl: HTMLDivElement;
   let intersecting: boolean;
+
+  const dispatch = createEventDispatcher();
 
   onMount(() => {
     const observer = new IntersectionObserver((entries) => {
       intersecting = entries[0].isIntersecting;
       if (intersecting) {
-        onInersection();
+        dispatch('intersection');
         if (once) observer.unobserve(containerEl);
       }
     });

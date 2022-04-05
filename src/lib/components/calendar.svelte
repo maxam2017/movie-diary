@@ -1,12 +1,25 @@
 <script lang="ts">
-  import { getDaysInMonth, endOfMonth, startOfMonth, format, addMonths, isSameDay, addDays } from 'date-fns';
-  import { range } from 'lodash-es';
+  import { supabase } from '$lib/supabase';
 
-  const now = new Date();
+  import {
+    getDaysInMonth,
+    endOfMonth,
+    startOfMonth,
+    format,
+    addMonths,
+    isSameDay,
+    addDays,
+    startOfDay,
+  } from 'date-fns';
+  import { range } from 'lodash-es';
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+  const now = startOfDay(new Date());
   const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
 
   let offset = 0;
-  $: watchDay = addMonths(new Date(), offset);
+  $: watchDay = addMonths(now, offset);
   $: startDayOfMonth = startOfMonth(watchDay);
   $: endDayOfMonth = endOfMonth(watchDay);
 
@@ -20,9 +33,27 @@
 </script>
 
 <div class="header">
-  <img class="header__arrow" alt="goto last month" src="/arrow-left.svg" on:click={() => (offset -= 1)} />
+  <img
+    class="header__arrow"
+    alt="goto last month"
+    src="/arrow-left.svg"
+    on:click={() => {
+      offset -= 1;
+      const day = addMonths(now, offset);
+      dispatch('month_change', { year: day.getFullYear(), month: day.getMonth() + 1 });
+    }}
+  />
   {title}
-  <img class="header__arrow" alt="goto next month" src="/arrow-right.svg" on:click={() => (offset += 1)} />
+  <img
+    class="header__arrow"
+    alt="goto next month"
+    src="/arrow-right.svg"
+    on:click={() => {
+      offset += 1;
+      const day = addMonths(now, offset);
+      dispatch('month_change', { year: day.getFullYear(), month: day.getMonth() + 1 });
+    }}
+  />
 </div>
 <div class="calendar">
   {#each weekdays as day}
