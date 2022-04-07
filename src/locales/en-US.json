@@ -1,0 +1,20 @@
+{
+  "page": {
+    "home": {
+      "hero": {
+        "title": "Welcome！",
+        "subtitle": "Millions of movies to discover. Explore now."
+      },
+      "search": {
+        "placeholder": "Try to search {keyword}...",
+        "cta": "Search"
+      },
+      "header": {
+        "popular": "What's popular"
+      }
+    },
+    "search": {
+      "placeholder": "Search for a movie..."
+    }
+  }
+}
