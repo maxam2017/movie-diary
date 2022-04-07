@@ -2,10 +2,10 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 const TMDB_ENDPOINT = 'https://api.themoviedb.org/3';
 
-export const get: RequestHandler = async ({ params, url, headers }) => {
+export const get: RequestHandler = async ({ params, url }) => {
   const searchParams = url.searchParams;
   searchParams.set('api_key', import.meta.env.VITE_TMDB_API_KEY + '');
-  if (!searchParams.get('language')) searchParams.set('language', 'zh-TW');
+  if (!searchParams.get('language')) searchParams.set('language', 'en-US');
   const search = searchParams.toString();
   const input = TMDB_ENDPOINT + `/${params.slug}` + (search ? `?${search}` : '');
 
