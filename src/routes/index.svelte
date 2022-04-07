@@ -1,34 +1,46 @@
-<script lang="ts">
-  import { user } from '$lib/stores/user';
+<script context="module" lang="ts">
+  export async function load() {
+    await listTrending({ page: 1 });
+    return { status: 200 };
+  }
 </script>
 
-<div class="hero">
-  <h1 class="hero__title">
-    Make your experience <span class="hero__title--highlight">merorable</span>
-    <div class="button-wrapper">
-      <a href={$user ? '/cal' : '/login'}>
-        <button class="btn bg-slate-700 font-bold text-lg text-white"> Flim your life 🍿️</button>
-      </a>
-    </div>
-  </h1>
-</div>
+<script lang="ts">
+  import Hero from '$lib/components/Hero.svelte';
 
-<style lang="postcss">
-  .hero {
-    @apply pt-32 pb-12 md:pt-40 md:pb-20;
-    @apply text-center;
+  import { _ } from 'svelte-i18n';
+
+  import { listTrending, movieList } from '$lib/stores/movie';
+  import Header from '$lib/components/header.svelte';
+  import Footer from '$lib/components/footer.svelte';
+  import MovieGrid from '$lib/components/movie-grid.svelte';
+  import MovieList from '$lib/components/movie-list.svelte';
+</script>
+
+<Header />
+<Hero />
+
+<h3>{$_('page.home.header.popular')}</h3>
+
+<svelte:component
+  this={typeof window !== 'undefined' && window.innerWidth < 1020 ? MovieList : MovieGrid}
+  items={$movieList}
+/>
+
+<div class="padding" />
+<Footer />
+
+<style lang="scss">
+  h3 {
+    display: flex;
+    align-items: center;
+    height: 72px;
+    padding: 0 24px;
+    font-size: 1.4rem;
+    font-weight: 600;
   }
 
-  .hero__title {
-    @apply text-5xl md:text-6xl font-extrabold leading-snug mb-4 text-slate-700;
-  }
-
-  .hero__title--highlight {
-    @apply inline-block;
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-purple-600;
-  }
-
-  .button-wrapper {
-    @apply my-10;
+  .padding {
+    height: 60px;
   }
 </style>

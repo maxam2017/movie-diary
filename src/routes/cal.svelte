@@ -16,7 +16,6 @@
     if (!$user) {
       return goto('/login');
     }
-    getConfig();
     listTrending({ page: 1 });
     selectDiary();
   });

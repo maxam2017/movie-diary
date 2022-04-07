@@ -6,7 +6,7 @@ import { keyBy, pick } from 'lodash-es';
 const DefaultPage: Page = { loading: false, fetched: false, ids: [], page: 0 };
 
 // store preset
-type Movie = {
+export type Movie = {
   poster_path: string;
   adult: boolean;
   overview: string;

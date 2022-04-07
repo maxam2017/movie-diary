@@ -95,6 +95,8 @@
   .calendar__item {
     @apply flex justify-center items-center self-center justify-self-center w-8 h-8;
     @apply rounded-full font-medium text-xl text-slate-600;
+
+    cursor: pointer;
   }
 
   .calendar__item--active {
