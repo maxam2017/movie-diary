@@ -3,7 +3,7 @@
   import { waitLocale } from 'svelte-i18n';
 
   export async function preload() {
-    await waitLocale();
+    return waitLocale();
   }
 
   export async function load() {
@@ -18,9 +18,12 @@
 
   import '../app.css';
   import { getConfig } from '$lib/stores/config';
+  import { isLoading } from 'svelte-i18n';
 </script>
 
 <div class="flex-1 flex flex-col">
-  <slot />
+  {#if !$isLoading}
+    <slot />
+  {/if}
   <Snackbar />
 </div>
