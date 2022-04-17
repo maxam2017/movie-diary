@@ -3,11 +3,12 @@
   import { waitLocale } from 'svelte-i18n';
 
   export async function preload() {
-    return waitLocale();
+    await waitLocale();
   }
 
   export async function load() {
-    await getConfig();
+    const promise = getConfig();
+    if (typeof window === 'undefined') await promise;
     return { status: 200 };
   }
 </script>

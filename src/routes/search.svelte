@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   export async function load({ url }: LoadInput) {
-    await searchMovie({ query: url.searchParams.get('q'), region: 'TW' });
+    const promise = searchMovie({ query: url.searchParams.get('q'), region: 'TW' });
+    if (typeof window === 'undefined') await promise;
     return { status: 200 };
   }
 </script>

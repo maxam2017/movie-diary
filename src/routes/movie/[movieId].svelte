@@ -1,13 +1,13 @@
 <script context="module" lang="ts">
-  import { getMovie, movieData } from '$lib/stores/movie';
-
   export async function load({ params }: LoadInput) {
-    await getMovie({ id: parseInt(params.movieId) });
+    const promise = getMovie({ id: parseInt(params.movieId) });
+    if (typeof window === 'undefined') await promise;
     return { status: 200 };
   }
 </script>
 
 <script lang="ts">
+  import { getMovie, movieData } from '$lib/stores/movie';
   import { page } from '$app/stores';
   import type { LoadInput } from '@sveltejs/kit/types/private';
   import { config } from '$lib/stores/config';
@@ -18,6 +18,7 @@
   import Button from '$lib/components/button.svelte';
   import { user } from '$lib/stores/user';
   import { device } from '$lib/stores/device';
+  import { onMount } from 'svelte';
 
   const movieId = parseInt($page.params.movieId);
   $: movie = $movieData[movieId];

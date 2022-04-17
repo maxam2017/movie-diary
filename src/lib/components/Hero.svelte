@@ -40,8 +40,11 @@
         : ''}
       on:search={(e) => {
         const q = e.detail;
-        if (!q) return;
-        goto(`/search?q=${q}`);
+        if (!q) {
+          goto(`/movie/${selectedMovie.id}`);
+        } else {
+          goto(`/search?q=${q}`);
+        }
       }}
     />
   </div>

@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
   export async function load() {
-    await listTrending({ page: 1 });
+    const promise = listTrending({ page: 1 });
+    if (typeof window === 'undefined') await promise;
     return { status: 200 };
   }
 </script>
