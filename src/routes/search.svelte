@@ -1,13 +1,12 @@
 <script context="module" lang="ts">
   export async function load({ url }: LoadInput) {
-    const promise = searchMovie({ query: url.searchParams.get('q'), region: 'TW' });
-    if (typeof window === 'undefined') await promise;
+    await searchMovie({ query: url.searchParams.get('q'), region: 'TW' });
     return { status: 200 };
   }
 </script>
 
 <script lang="ts">
-  import { term, movieList, searchMovie, moviePage } from '$lib/stores/movie';
+  import { term, movieList, searchMovie, moviePage, movieData } from '$lib/stores/movie';
   import { page } from '$app/stores';
   import type { LoadInput } from '@sveltejs/kit/types/private';
   import MovieGrid from '$lib/components/movie-grid.svelte';

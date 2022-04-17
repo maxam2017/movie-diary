@@ -2,7 +2,7 @@ import { derived, get, writable } from 'svelte/store';
 import axios from 'axios';
 import { stringify } from 'qs';
 import { keyBy, pick } from 'lodash-es';
-import { getLocaleFromNavigator } from 'svelte-i18n';
+import { getLocaleFromNavigator, json } from 'svelte-i18n';
 
 const DefaultPage: Page = { loading: false, fetched: false, ids: [], page: 0 };
 
@@ -78,12 +78,15 @@ function getKey(args: Args) {
   return stringify(pick(args, ['query', 'region', 'include_adult', 'year', 'primary_release_year']));
 }
 
-export async function getMovie({ id }: { id: number }): Promise<void> {
+export async function getMovie({ id }: { id: number }, fetchFn = fetch): Promise<Movie> {
   // const existed = get(store).data[id];
   // if (existed) return;
 
   try {
-    const { data } = await axios.get<Movie>(`/api/tmdb/movie/${id}?language=${getLocaleFromNavigator()}`);
+    // const { data } = await axios.get<Movie>(`/api/tmdb/movie/${id}?language=${getLocaleFromNavigator()}`);
+    const data = (await fetchFn(`/api/tmdb/movie/${id}?language=${getLocaleFromNavigator()}`, { method: 'GET' }).then(
+      (res) => res.json(),
+    )) as Movie;
 
     store.update((prevStore) => {
       return {
@@ -94,10 +97,12 @@ export async function getMovie({ id }: { id: number }): Promise<void> {
         },
       };
     });
+
+    return data;
   } catch (err) {}
 }
 
-export async function listTrending({ page }: Pick<Args, 'page'>): Promise<void> {
+export async function listTrending({ page }: Pick<Args, 'page'>, fetchFn = fetch): Promise<Movie[]> {
   const pageKey = getKey({ trending: true });
 
   store.update((prevStore) => {
@@ -111,9 +116,10 @@ export async function listTrending({ page }: Pick<Args, 'page'>): Promise<void> 
   });
 
   try {
-    const { data } = await axios.get<SearchResponse>(
-      `/api/tmdb/trending/movie/week?page=${page}&language=${getLocaleFromNavigator()}`,
-    );
+    const data = (await fetchFn(`/api/tmdb/trending/movie/week?page=${page}&language=${getLocaleFromNavigator()}`, {
+      method: 'GET',
+    }).then((res) => res.json())) as SearchResponse;
+
     const ids = data.results.map((result) => String(result.id));
 
     store.update((prevStore) => {
@@ -137,6 +143,8 @@ export async function listTrending({ page }: Pick<Args, 'page'>): Promise<void> 
         },
       };
     });
+
+    return data.results;
   } catch (err) {
     store.update((prevStore) => {
       return {
@@ -154,7 +162,7 @@ export async function listTrending({ page }: Pick<Args, 'page'>): Promise<void> 
   }
 }
 
-export async function searchMovie(args: Args): Promise<void> {
+export async function searchMovie(args: Args, fetchFn = fetch): Promise<Movie[]> {
   const pageKey = getKey(args);
 
   store.update((prevStore) => {
@@ -168,9 +176,10 @@ export async function searchMovie(args: Args): Promise<void> {
   });
 
   try {
-    const { data } = await axios.get<SearchResponse>(
-      `/api/tmdb/search/movie?${stringify(args)}&language=${getLocaleFromNavigator()}`,
-    );
+    const data = (await fetchFn(`/api/tmdb/search/movie?${stringify(args)}&language=${getLocaleFromNavigator()}`, {
+      method: 'GET',
+    }).then((res) => res.json())) as SearchResponse;
+
     const ids = data.results.map((result) => String(result.id));
 
     store.update((prevStore) => {
@@ -194,6 +203,8 @@ export async function searchMovie(args: Args): Promise<void> {
         },
       };
     });
+
+    return data.results;
   } catch (err) {
     store.update((prevStore) => {
       return {

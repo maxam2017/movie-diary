@@ -1,8 +1,7 @@
 <script context="module" lang="ts">
-  export async function load() {
-    const promise = listTrending({ page: 1 });
-    if (typeof window === 'undefined') await promise;
-    return { status: 200 };
+  export async function load({ fetch }: LoadInput) {
+    const movies = (await listTrending({ page: 1 }, fetch)) || [];
+    return { status: 200, props: { movies } };
   }
 </script>
 
@@ -11,10 +10,13 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { listTrending, movieList } from '$lib/stores/movie';
+  import { listTrending, Movie } from '$lib/stores/movie';
   import Header from '$lib/components/header.svelte';
   import Footer from '$lib/components/footer.svelte';
   import MovieGrid from '$lib/components/movie-grid.svelte';
+  import type { LoadInput } from '@sveltejs/kit/types/private';
+
+  export let movies: Movie[] = [];
 </script>
 
 <Header />
@@ -22,7 +24,7 @@
 
 <h3>{$_('page.home.header.popular')}</h3>
 
-<svelte:component this={MovieGrid} items={$movieList} />
+<svelte:component this={MovieGrid} items={movies} />
 
 <div class="padding" />
 <Footer />

@@ -1,14 +1,12 @@
 <script context="module" lang="ts">
   export async function load({ params }: LoadInput) {
-    const promise = getMovie({ id: parseInt(params.movieId) });
-    if (typeof window === 'undefined') await promise;
-    return { status: 200 };
+    const movie = await getMovie({ id: parseInt(params.movieId) });
+    return { status: 200, props: { movie } };
   }
 </script>
 
 <script lang="ts">
-  import { getMovie, movieData } from '$lib/stores/movie';
-  import { page } from '$app/stores';
+  import { getMovie, Movie } from '$lib/stores/movie';
   import type { LoadInput } from '@sveltejs/kit/types/private';
   import { config } from '$lib/stores/config';
   import Header from '$lib/components/header.svelte';
@@ -20,8 +18,7 @@
   import { device } from '$lib/stores/device';
   import { _ } from 'svelte-i18n';
 
-  const movieId = parseInt($page.params.movieId);
-  $: movie = $movieData[movieId];
+  export let movie: Movie;
 
   let backdropSrc: string;
   let posterSrc: string;
