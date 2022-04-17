@@ -1,14 +1,17 @@
 <script lang="ts">
   export let href: string = undefined;
   export let primary = false;
+  let className = '';
+
+  export { className as class };
 </script>
 
 {#if typeof href === 'string'}
   <a target={href.startsWith('https://') ? '_blank' : '_self'} rel="noopener" {href}
-    ><button class:primary {...$$restProps}><slot /></button></a
+    ><button class:primary {...$$restProps} class={className}><slot /></button></a
   >
 {:else}
-  <button class:primary {...$$restProps}> <slot /></button>
+  <button class:primary {...$$restProps} class={className}> <slot /></button>
 {/if}
 
 <style lang="scss">

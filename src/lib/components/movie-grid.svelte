@@ -46,7 +46,7 @@
 
   .cell {
     display: block;
-    min-width: 200px;
+    min-width: 0;
     padding: 24px;
     border-radius: 8px;
 

@@ -18,19 +18,39 @@
   </a>
   <div class="flex1">
     {#if $page.url.pathname !== '/cal'}
-      <Button href={$user ? '/cal' : '/login'}>🍿️ Film your life</Button>
+      <Button class="button" href={$user ? '/cal' : '/login'}>🍿️ Film your life</Button>
     {/if}
   </div>
 </header>
 
-<style lang="postcss">
+<style lang="scss">
   .header {
     z-index: 2;
     background-color: white;
     display: flex;
     justify-content: space-between;
-    @apply sticky top-0 flex items-center py-4 lg:px-8 px-4;
-    @apply font-bold text-xl transition justify-center md:justify-start;
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+
+    padding: 12px 16px;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.75rem;
+
+    @include desktop {
+      font-size: 1.25rem;
+      padding: 16px 32px;
+    }
+  }
+
+  :global(.button) {
+    font-size: 12px !important;
+
+    @include desktop {
+      font-size: 1rem !important;
+    }
   }
 
   .flex1 {
@@ -39,16 +59,12 @@
     justify-content: flex-end;
   }
 
-  .header--shadow {
-    /* @apply bg-white backdrop-blur-sm shadow-md; */
-  }
-
   .header__title {
-    @apply flex;
-    @apply text-slate-700;
+    display: flex;
+    color: rgb(51 65 85);
   }
 
   .header__logo {
-    @apply lg:mr-4 mr-2;
+    margin-right: 8px;
   }
 </style>
