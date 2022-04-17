@@ -1,4 +1,4 @@
-import { onMount } from 'svelte';
+import { onDestroy, onMount } from 'svelte';
 import { readable } from 'svelte/store';
 
 type DeviceStore = Record<'mobile' | 'pad' | 'desktop', boolean>;
@@ -29,6 +29,13 @@ export const device = readable<DeviceStore>({} as DeviceStore, function start(se
     set(getDevice(window.innerWidth));
   }
 
-  window.addEventListener('resize', listener);
-  return () => window.removeEventListener('resize', listener);
+  onMount(() => {
+    window.addEventListener('resize', listener);
+  });
+
+  onDestroy(() => {
+    if (typeof window !== 'undefined') {
+      return () => window.removeEventListener('resize', listener);
+    }
+  });
 });

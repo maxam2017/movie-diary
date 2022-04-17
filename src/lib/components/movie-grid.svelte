@@ -12,7 +12,7 @@
       <div
         alt={movie.title}
         class="thumbnail"
-        style={movie.poster_path && config
+        style={movie.poster_path && $config.images
           ? `background-image: url(${
               $config.images.secure_base_url + $config.images.poster_sizes?.[3] + movie.poster_path
             })`
