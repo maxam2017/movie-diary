@@ -2,8 +2,8 @@
   import { goto } from '$app/navigation';
   import Calendar from '$lib/components/calendar.svelte';
   import DiaryForm from '$lib/components/diary-form.svelte';
+  import Header from '$lib/components/header.svelte';
   import MovieChip from '$lib/components/movie-chip.svelte';
-  import { getConfig } from '$lib/stores/config';
   import { term, diaryList, selectDiary, diaryPage, insertDiary } from '$lib/stores/diary';
   import { listTrending } from '$lib/stores/movie';
 
@@ -23,6 +23,7 @@
   let diaryForm: DiaryForm;
 </script>
 
+<Header />
 <Calendar
   let:selected
   on:month_change={(evt) => {

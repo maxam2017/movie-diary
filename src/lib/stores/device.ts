@@ -26,7 +26,6 @@ export const device = readable<DeviceStore>({} as DeviceStore, function start(se
   });
 
   function listener() {
-    console.log(getDevice(window.innerWidth));
     set(getDevice(window.innerWidth));
   }
 

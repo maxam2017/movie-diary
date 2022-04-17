@@ -21,3 +21,9 @@
     <slot />
   </div>
 </div>
+
+<style lang="scss">
+  :global(.portal) {
+    z-index: 99;
+  }
+</style>

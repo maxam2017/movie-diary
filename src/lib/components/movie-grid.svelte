@@ -32,8 +32,16 @@
     width: 100%;
     display: grid;
     grid-gap: 16px;
-    grid-template-columns: repeat(5, 1fr);
-    padding: 0 24px;
+    grid-template-columns: repeat(2, 1fr);
+
+    @include pad {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include desktop {
+      grid-template-columns: repeat(5, 1fr);
+      padding: 0 24px;
+    }
   }
 
   .cell {

@@ -37,7 +37,8 @@
   .scroller {
     width: 100%;
     overflow-x: auto;
-    padding: 0 24px;
+    padding: 0 24px 20px;
+    scroll-snap-type: x mandatory;
   }
 
   .scroller__inner {
@@ -49,6 +50,8 @@
   .cell {
     display: block;
     min-width: 200px;
+    margin-right: 24px;
+    scroll-snap-align: center;
   }
 
   .title {

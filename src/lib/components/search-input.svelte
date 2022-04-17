@@ -29,14 +29,19 @@
   .input-wrapper {
     position: relative;
     width: 100%;
+    height: 40px;
     max-width: 1080px;
-    font-size: 1.2rem;
+    font-size: 1rem;
+
+    @include desktop {
+      height: 60px;
+    }
   }
 
   input {
     outline: none;
     display: block;
-    height: 60px;
+    height: 100%;
     width: 100%;
     padding: 5px 30px;
     border-radius: 60px;
@@ -45,6 +50,9 @@
 
     &::placeholder {
       color: rgba(0, 0, 0, 0.5);
+    }
+
+    @include desktop {
     }
   }
 
@@ -55,10 +63,14 @@
     transform: translate(20px, -50%);
     color: rgb(var(--white));
     background-image: linear-gradient(to right, rgba(var(--tmdbLightGreen), 1) 0%, rgba(var(--tmdbLightBlue), 1) 100%);
-    height: 60px;
+    height: 100%;
     padding: 0 32px;
     display: flex;
     align-items: center;
     border-radius: 60px;
+
+    @include desktop {
+      height: 60px;
+    }
   }
 </style>

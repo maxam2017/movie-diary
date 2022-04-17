@@ -14,7 +14,6 @@
   import Header from '$lib/components/header.svelte';
   import Footer from '$lib/components/footer.svelte';
   import MovieGrid from '$lib/components/movie-grid.svelte';
-  import MovieList from '$lib/components/movie-list.svelte';
 </script>
 
 <Header />
@@ -22,10 +21,7 @@
 
 <h3>{$_('page.home.header.popular')}</h3>
 
-<svelte:component
-  this={typeof window !== 'undefined' && window.innerWidth < 1020 ? MovieList : MovieGrid}
-  items={$movieList}
-/>
+<svelte:component this={MovieGrid} items={$movieList} />
 
 <div class="padding" />
 <Footer />
@@ -36,8 +32,13 @@
     align-items: center;
     height: 72px;
     padding: 0 24px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 600;
+
+    @include desktop {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
   }
 
   .padding {

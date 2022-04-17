@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 :root {
+  --primary: 30, 203, 225;
   --scrollerGrey: 219, 219, 219;
   --lightGrey: 227, 227, 227;
   --darkerGrey: 200, 200, 200;
@@ -60,4 +61,9 @@
   .btn-sm {
     @apply px-4 py-2 shadow;
   }
+}
+
+html,
+body {
+  max-width: 100%;
 }

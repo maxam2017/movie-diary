@@ -6,6 +6,7 @@
   import { config, configStatus } from '$lib/stores/config';
 
   import { term, movieList, moviePage } from '$lib/stores/movie';
+  import { device } from '$lib/stores/device';
 
   term.set({ trending: true });
 
@@ -32,7 +33,11 @@
     <h2>{$_('page.home.hero.title')}</h2>
     <h3>{$_('page.home.hero.subtitle')}</h3>
     <SearchInput
-      placeholder={$_('page.home.search.placeholder', { values: { keyword: selectedMovie?.title } })}
+      placeholder={$device.mobile
+        ? $_('page.home.search.placeholder.mobile')
+        : selectedMovie
+        ? $_('page.home.search.placeholder.desktop', { values: { keyword: selectedMovie.title } })
+        : ''}
       on:search={(e) => {
         const q = e.detail;
         if (!q) return;
@@ -44,14 +49,19 @@
 
 <style lang="scss">
   .hero {
+    overflow: hidden;
     display: flex;
     align-items: center;
     width: 100%;
-    height: 450px;
+    height: 300px;
     background-position: top center;
     background-size: cover;
     background-repeat: no-repeat;
     background-color: rgb(var(--tmdbDarkBlue));
+
+    @include desktop {
+      height: 450px;
+    }
   }
 
   .hero__title {
@@ -59,19 +69,24 @@
     flex: 1;
     flex-direction: column;
     align-items: flex-start;
-    padding: 30px 40px;
+    padding: 0 40px;
   }
 
   h2 {
     color: white;
-    font-size: 2.5rem;
+    font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 12px;
+
+    @include desktop {
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
   }
 
   h3 {
     color: white;
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 500;
     margin-bottom: 44px;
   }

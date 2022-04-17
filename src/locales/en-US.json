@@ -6,8 +6,12 @@
         "subtitle": "Millions of movies to discover. Explore now."
       },
       "search": {
-        "placeholder": "Try to search {keyword}...",
-        "cta": "Search"
+        "placeholder": {
+          "desktop": "Search 「{keyword}」",
+          "mobile": "Search..."
+        },
+        "cta": "Search",
+        "not-found": "No movies found."
       },
       "header": {
         "popular": "What's popular"
