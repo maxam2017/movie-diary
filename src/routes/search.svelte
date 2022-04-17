@@ -76,8 +76,9 @@
     display: flex;
     justify-self: center;
     align-self: center;
-    min-width: 240px;
     width: 50%;
+    max-width: 400px;
+    min-width: 240px;
   }
 
   .empty {

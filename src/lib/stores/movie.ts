@@ -21,6 +21,11 @@ export type Movie = {
   vote_count: number;
   video: boolean;
   vote_average: number;
+  production_companies?: { id: number; logo_path: string; name: string; origin_country: string }[];
+  production_countries?: { iso_3166_1: string; name: string }[];
+  homepage?: string;
+  imdb_id: string;
+  tagline?: string;
 };
 
 type PageInfo = {
@@ -73,8 +78,8 @@ function getKey(args: Args) {
 }
 
 export async function getMovie({ id }: { id: number }): Promise<void> {
-  const existed = get(store).data[id];
-  if (existed) return;
+  // const existed = get(store).data[id];
+  // if (existed) return;
 
   try {
     const { data } = await axios.get<Movie>(`/api/tmdb/movie/${id}`);

@@ -1,11 +1,14 @@
 <script lang="ts">
   export let href: string = undefined;
+  export let primary = false;
 </script>
 
 {#if typeof href === 'string'}
-  <a {href}><button {...$$restProps}><slot /></button></a>
+  <a target={href.startsWith('https://') ? '_blank' : '_self'} rel="noopener" {href}
+    ><button class:primary {...$$restProps}><slot /></button></a
+  >
 {:else}
-  <button {...$$restProps}> <slot /></button>
+  <button class:primary {...$$restProps}> <slot /></button>
 {/if}
 
 <style lang="scss">
@@ -22,6 +25,10 @@
 
     &:hover {
       background: rgba(0, 0, 0, 0.8);
+    }
+
+    &.primary {
+      background: rgb(var(--primary));
     }
   }
 </style>
