@@ -77,8 +77,14 @@
   }
 
   .title {
-    font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    @include desktop {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
     color: rgba(0, 0, 0, 0.85);
     margin-top: 8px;
     overflow: hidden;

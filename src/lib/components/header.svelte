@@ -3,6 +3,7 @@
   import { user } from '$lib/stores/user';
 
   import Button from './button.svelte';
+  import { _ } from 'svelte-i18n';
 
   let pageOffsetY: number;
 </script>
@@ -18,7 +19,7 @@
   </a>
   <div class="flex1">
     {#if $page.url.pathname !== '/cal'}
-      <Button class="button" href={$user ? '/cal' : '/login'}>🍿️ Film your life</Button>
+      <Button class="button" href={$user ? '/cal' : '/login'}>{$_('page.home.hero.slogan')}</Button>
     {/if}
   </div>
 </header>

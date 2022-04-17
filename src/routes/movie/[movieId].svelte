@@ -18,7 +18,7 @@
   import Button from '$lib/components/button.svelte';
   import { user } from '$lib/stores/user';
   import { device } from '$lib/stores/device';
-  import { onMount } from 'svelte';
+  import { _ } from 'svelte-i18n';
 
   const movieId = parseInt($page.params.movieId);
   $: movie = $movieData[movieId];
@@ -77,11 +77,11 @@
       <p>{movie.overview}</p>
       <div class="flex flex-wrap gap-4">
         {#if movie.homepage}
-          <Button href={movie.homepage}>Offical</Button>
+          <Button href={movie.homepage}>{$_('page.detail.official')}</Button>
         {/if}
         <Button href={'https://www.imdb.com/title/' + movie.imdb_id}>IMDB</Button>
         <Button href={'https://letterboxd.com/tmdb/' + movie.id}>Letterboxd</Button>
-        <Button primary href={$user ? '/cal' : '/login'}>Review Now</Button>
+        <Button primary href={$user ? '/cal' : '/login'}>{$_('page.detail.review-now')}</Button>
       </div>
     </div>
   </div>

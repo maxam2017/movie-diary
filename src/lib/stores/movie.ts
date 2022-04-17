@@ -2,6 +2,7 @@ import { derived, get, writable } from 'svelte/store';
 import axios from 'axios';
 import { stringify } from 'qs';
 import { keyBy, pick } from 'lodash-es';
+import { getLocaleFromNavigator } from 'svelte-i18n';
 
 const DefaultPage: Page = { loading: false, fetched: false, ids: [], page: 0 };
 
@@ -82,7 +83,7 @@ export async function getMovie({ id }: { id: number }): Promise<void> {
   // if (existed) return;
 
   try {
-    const { data } = await axios.get<Movie>(`/api/tmdb/movie/${id}`);
+    const { data } = await axios.get<Movie>(`/api/tmdb/movie/${id}?language=${getLocaleFromNavigator()}`);
 
     store.update((prevStore) => {
       return {
@@ -110,7 +111,9 @@ export async function listTrending({ page }: Pick<Args, 'page'>): Promise<void> 
   });
 
   try {
-    const { data } = await axios.get<SearchResponse>(`/api/tmdb/trending/movie/week?page=${page}`);
+    const { data } = await axios.get<SearchResponse>(
+      `/api/tmdb/trending/movie/week?page=${page}&language=${getLocaleFromNavigator()}`,
+    );
     const ids = data.results.map((result) => String(result.id));
 
     store.update((prevStore) => {
@@ -165,7 +168,9 @@ export async function searchMovie(args: Args): Promise<void> {
   });
 
   try {
-    const { data } = await axios.get<SearchResponse>(`/api/tmdb/search/movie?${stringify(args)}`);
+    const { data } = await axios.get<SearchResponse>(
+      `/api/tmdb/search/movie?${stringify(args)}&language=${getLocaleFromNavigator()}`,
+    );
     const ids = data.results.map((result) => String(result.id));
 
     store.update((prevStore) => {

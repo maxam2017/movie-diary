@@ -3,7 +3,8 @@
     "home": {
       "hero": {
         "title": "Welcome！",
-        "subtitle": "Millions of movies to discover. Explore now."
+        "subtitle": "Millions of movies to discover. Explore now.",
+        "slogan": "🍿️ Film your life"
       },
       "search": {
         "placeholder": {
@@ -19,6 +20,10 @@
     },
     "search": {
       "placeholder": "Search for a movie..."
+    },
+    "detail": {
+      "official": "Official",
+      "review-now": "Review Now!"
     }
   }
 }
