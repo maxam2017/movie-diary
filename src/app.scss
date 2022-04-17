@@ -1,0 +1,18 @@
+$header_height: 64px;
+
+@mixin pad {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+html,
+body {
+  max-width: 100%;
+}
